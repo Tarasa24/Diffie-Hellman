@@ -32,11 +32,8 @@ export default {
   methods: {
     writeLine(type, msg) {
       let newLine = '&#13;&#10;';
-      function time() {
-        let now = new Date();
-        return `[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`;
-      }
-      this.text += `${time()} [${type}] ${msg + newLine}`;
+      let n = this.$parent.step + 1;
+      this.text += `${n}. [${type}] ${msg + newLine}`;
     },
     generateSecret() {
       this.writeLine('INFO', `Generated secret ${this.index} = ${this.secret}`);
