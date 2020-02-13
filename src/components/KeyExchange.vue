@@ -4,10 +4,14 @@
     <Server ref="server" class="server" />
     <Client title="Bob" ref="bob" class="bob" />
     <div class="btns">
-      <button v-on:click="handleClick" :disabled="disable">
+      <button class="btn btn-dark" v-on:click="handleClick" :disabled="disable">
         Next
       </button>
-      <button v-on:click="handleSkip" :disabled="disable">
+      <button
+        class="btn btn-secondary"
+        v-on:click="handleSkip"
+        :disabled="disable"
+      >
         Skip
       </button>
     </div>
@@ -145,4 +149,40 @@ let instructions = [
   grid-template-areas: 'Alice Server Bob' 'btns btns btns'
 
   text-align: center
+
+.btn
+  cursor: pointer
+  display: inline-block
+  font-weight: 400
+  color: #212529
+  text-align: center
+  vertical-align: middle
+  user-select: none
+  background-color: transparent
+  border: 1px solid transparent
+  padding: .375rem .75rem
+  font-size: 1rem
+  line-height: 1.5
+  border-radius: .25rem
+  &:disabled
+    cursor: not-allowed
+    filter: opacity(30%)
+
+.btn-dark
+  color: #fff
+  background-color: #343a40
+  border-color: #343a40
+  &:hover
+    color: #fff
+    background-color: #23272b
+    border-color: #1d2124
+
+.btn-secondary
+  color: black
+  background-color: white
+  border-color: #6c757d
+  &:hover
+    color: black
+    background-color: #f8f9fa
+    border-color: #545b62
 </style>
