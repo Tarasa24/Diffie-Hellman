@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1>Visualisation</h1>
     <Client title="Alice" ref="alice" class="alice" />
     <Server ref="server" class="server" />
     <Client title="Bob" ref="bob" class="bob" />
@@ -86,9 +87,8 @@ let instructions = [
   },
   //generate A, B
   function(refs) {
-    let pub = refs.server.$data.pub;
-    refs.alice.calculateMixture(pub.p, pub.g);
-    refs.bob.calculateMixture(pub.p, pub.g);
+    refs.alice.calculateMixture();
+    refs.bob.calculateMixture();
   },
   //send A
   function(refs) {
@@ -112,20 +112,22 @@ let instructions = [
   },
   //calculate shared secret
   function(refs) {
-    let pub = refs.server.$data.pub;
-    refs.alice.calculateSharedSecret(refs.bob.$data.mixture, 'B', pub.p);
-    refs.bob.calculateSharedSecret(refs.alice.$data.mixture, 'A', pub.p);
+    refs.alice.calculateSharedSecret(refs.bob.$data.mixture);
+    refs.bob.calculateSharedSecret(refs.alice.$data.mixture);
   },
   function(refs) {
     alert(
-      'Shared secret with no way for server to know it is: ' +
-        refs.alice.$data.sharedSecret
+      `Alice and Bob now share a secret (the number ${refs.alice.$data.sharedSecret})`
     );
   },
 ];
 </script>
 
 <style lang="sass" scoped>
+h1
+  grid-area: h1
+  margin-bottom: 5%
+
 .alice
   grid-area: Alice;
 .server
@@ -146,7 +148,7 @@ let instructions = [
   grid-row-gap: 1em
   align-items: center
   justify-items: center
-  grid-template-areas: 'Alice Server Bob' 'btns btns btns'
+  grid-template-areas: 'h1 h1 h1' 'Alice Server Bob' 'btns btns btns'
 
   text-align: center
 

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Head />
-    <KeyExchange />
+    <KeyExchange ref="keyExchange" />
     <br />
     <Footer />
   </div>

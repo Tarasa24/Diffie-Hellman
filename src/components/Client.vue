@@ -39,21 +39,37 @@ export default {
       this.writeLine('INFO', `Generated secret ${this.index} = ${this.secret}`);
       this.showSecret = true;
     },
-    calculateMixture(p, g) {
-      this.mixture = bigintCryptoUtils.modPow(g, this.secret, p);
-      this.writeLine(
-        'INFO',
-        `Calculating ${this.index.toUpperCase()} = g^${this.index} mod p = ${
-          this.mixture
-        }`
-      );
+    calculateMixture(ret = false) {
+      if (ret) {
+        let pub = this.$parent.$refs.server.$data.pub;
+        this.mixture = Number(
+          bigintCryptoUtils.modPow(pub.g, this.secret, pub.p)
+        );
+        return this.mixture;
+      } else {
+        this.writeLine(
+          'INFO',
+          `Calculating ${this.index.toUpperCase()} = g^${this.index} mod p = ${
+            this.mixture
+          }`
+        );
+      }
     },
-    calculateSharedSecret(mixture, mixtureIndex, p) {
-      this.sharedSecret = bigintCryptoUtils.modPow(mixture, this.secret, p);
-      this.writeLine(
-        'INFO',
-        `Calculating s = ${mixtureIndex}^${this.index} mod p = ${this.sharedSecret}`
-      );
+    calculateSharedSecret(mixture, ret = false) {
+      if (ret) {
+        let pub = this.$parent.$refs.server.$data.pub;
+        this.sharedSecret = Number(
+          bigintCryptoUtils.modPow(mixture, this.secret, pub.p)
+        );
+
+        return this.sharedSecret;
+      } else {
+        let mixtureIndex = { a: 'B', b: 'A' }[this.index];
+        this.writeLine(
+          'INFO',
+          `Calculating s = ${mixtureIndex}^${this.index} mod p = ${this.sharedSecret}`
+        );
+      }
     },
   },
 };
