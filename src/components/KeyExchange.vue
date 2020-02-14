@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Visualisation</h1>
+    <h1>Visualization</h1>
     <Client title="Alice" ref="alice" class="alice" />
     <Server ref="server" class="server" />
     <Client title="Bob" ref="bob" class="bob" />
